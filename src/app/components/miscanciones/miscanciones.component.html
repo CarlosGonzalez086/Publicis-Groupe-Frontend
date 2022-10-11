@@ -1,0 +1,60 @@
+<div class="loading" *ngIf="!mimusicas">
+    Cargando listado de canciones
+</div>
+<div class="container-fluid" *ngIf="mimusicas" id="card-one">
+    <h1>{{page_title}}</h1>
+    <hr>
+    <div style="padding-left:1rem;">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn">
+            <h4>Agregar canciones:<img src="assets/848528-200.png" width="50" height="50" [routerLink]="['/mimusica']"></h4>
+        </button>
+    </div>
+    <div class="card" style="width: 20rem; height: 0rem; border: transparent;">
+        <article class="card w-100" *ngFor="let mimusica of mimusicas" id="card-two">
+            <div class="card-header">
+                <h5>
+                    {{ mimusica.name }}
+                </h5>
+                <h6>
+                    {{mimusica.author}}
+                </h6>
+                <p>
+                    Cancion registrada por <br> usuario numero: {{ mimusica.user_id }}
+                </p>
+            </div>
+            <div class="card-body">
+                <div class="mimusica-buttons mt-5" style="text-align: center;">
+                    <span *ngIf="identity && identity.sub == mimusica.user_id">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            [attr.data-bs-target]="'#exampleModal'+mimusica.id" style="border-radius: 30px;">
+                            Eliminar Cancion
+                        </button>
+                        <div class="modal fade" id="{{'exampleModal'+mimusica.id}}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">¿Seguro que quieres borrar
+                                            esta entrada?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Vas a borrar definitivamente {{mimusica.name}} de {{ mimusica.author }} 
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                            style="border-radius: 30px;">Close</button>
+                                        <a (click)="deletePost(mimusica.id)" class="btn btn-danger"
+                                            style="border-radius: 30px;" data-bs-dismiss="modal">BORRAR</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </article>
+    </div>
+</div>

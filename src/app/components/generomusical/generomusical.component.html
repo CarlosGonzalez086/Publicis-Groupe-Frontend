@@ -1,0 +1,21 @@
+<div class="container">
+    <h1>{{ page_title }}</h1>
+    <p>
+        Agregar nuevo genero musical
+    </p>
+    
+    <hr style="color: red;">
+    <form class="col-md-5 ml-0 pl-0" #categoryForm = "ngForm"  (ngSubmit)="onSubmit(categoryForm)">
+        <div class="form-group">
+            <label for="name">Genero:</label>
+            <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="category.name"
+            required pattern="[a-zA-Z]+">
+            <small *ngIf="!name.valid && name.touched" class="invalid-feedback d-block">
+                EL NOMBRE NO ES VALIDO
+            </small>
+        </div>
+        <br>
+        <input type="submit" value="Agregar Genero" class="btn btn-success" 
+        [disabled]="categoryForm.invalid" style="border-radius: 30px;">
+    </form>
+</div>
